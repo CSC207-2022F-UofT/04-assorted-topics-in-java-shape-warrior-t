@@ -35,34 +35,41 @@ public class Trader<T> {
         this.money = money;
     }
 
-    /* TODO: Add a new constructor that takes a single argument
-     *       representing the Trader's money. Give the Trader
-     *       empty ArrayLists for their inventory and wishlist.
-     */
-
-
-
-
-
-    /* TODO: Implement the method addToWishlist that takes an
-     *       object of type T and adds it to this Trader's wishlist.
-     */
-
-
-
-
-
-    /* TODO: Implement the method getSellingPrice that takes an
-     *       object of type T and returns the object's price
-     *       (via getPrice()) if it's Tradable. If not,
-     *       return Tradable.MISSING_PRICE.
+    /**
+     * Construct a Trader with the given money and an empty inventory and wishlist.
      *
-     *       We will call this in exchangeMoney().
+     * @param money The Trader's money
      */
+    public Trader(int money) {
+        this.inventory = new ArrayList<>();
+        this.wishlist = new ArrayList<>();
+        this.money = money;
+    }
 
+    /**
+     * Add the given item to this Trader's wishlist.
+     *
+     * @param item The item to be added
+     */
+    public void addToWishlist(T item) {
+        this.wishlist.add(item);
+    }
 
-
-
+    /**
+     * Return the selling price of the given item, if it is Tradable.
+     * If the given item is not Tradable, return Tradable.MISSING_PRICE.
+     *
+     * @param item The item to get the price of
+     * @return If the item is Tradable, the selling price of the item;
+     * otherwise, Tradable.MISSING_PRICE
+     */
+    public int getSellingPrice(T item) {
+        if (item instanceof Tradable) {
+            return ((Tradable) item).getPrice();
+        } else {
+            return Tradable.MISSING_PRICE;
+        }
+    }
 
     /**
      * Exchange money from other to this Trader according to the price of item,
@@ -134,11 +141,11 @@ public class Trader<T> {
         return details.toString();
     }
 
-    public List<T> getWishlist(){
+    public List<T> getWishlist() {
         return this.wishlist;
     }
 
-    public List<T> getInventory(){
+    public List<T> getInventory() {
         return this.inventory;
     }
 

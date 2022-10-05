@@ -22,32 +22,54 @@ class DrivableMap {
         drivable_map = new HashMap<>();
     }
 
-    /* TODO: Write a method named addDrivable that takes a String (the ID)
-     *       and a Drivable object. If the ID string does not appear as a key
-     *       in drivable_map, then add the pair to drivable_map.
-     *       Return true if the Drivable was added to drivable_map.
+    /**
+     * Add the given Drivable object to this map under the given ID,
+     * as long as the given ID is not already a key in this map.
+     * If the given ID is already a key in this map, make no changes.
+     *
+     * @param id The key to add the object under
+     * @param drivable The object to be added
+     * @return Whether the object was successfully added (in other words, true if the given ID
+     * was not already a key in this map and false otherwise)
      */
+    public boolean addDrivable(String id, Drivable drivable){
+        if(drivable_map.containsKey(id)){
+            return false;
+        }else{
+            drivable_map.put(id, drivable);
+            return true;
+        }
+    }
 
-
-
-
-    /* TODO: Write a method named hasFasterThan that takes an int (a speed)
-     *       and returns true iff there is at least one item in drivable_map
-     *       that has a maxSpeed >= the speed given.
-     * You may want to use drivable_map.keys() or drivable_map.values() to
-     * iterate through drivable_map.
+    /**
+     * Return whether this map contains an item with a max speed >= the given speed.
+     *
+     * @param speed The speed to compare max speeds to
+     * @return True iff there exists at least one item in this map for which
+     * the max speed of the item is greater than or equal to the given speed
      */
+    public boolean hasFasterThan(int speed){
+        for(Drivable item : drivable_map.values()){
+            if(item.getMaxSpeed() >= speed) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-
-
-
-
-    /* TODO: Write a method named getTradable that takes no arguments and
-     *       returns a List containing all of the Tradable items in
-     *       drivable_map.
+    /**
+     * Return a list of all Tradable items in this map.
+     *
+     * @return a list of all Tradable items in this map
      */
+    public List<Tradable> getTradable(){
+        ArrayList<Tradable> tradables = new ArrayList<>();
+        for(Drivable item : drivable_map.values()){
+            if(item instanceof Tradable){
+                tradables.add((Tradable) item);
+            }
+        }
+        return tradables;
+    }
 
-
-
-    
 }
